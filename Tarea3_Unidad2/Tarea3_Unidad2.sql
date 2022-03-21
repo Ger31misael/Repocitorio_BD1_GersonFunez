@@ -10,7 +10,8 @@ SELECT * FROM Products WHERE ProductName LIKE '%Chocolate%'
 
 /**EJERCICIO 3 **/
 SELECT * FROM Orders 
- WHERE ShipCountry = 'Germany' OR ShipCountry = 'France' OR ShipCountry = 'Brazil' OR ShipCountry = 'Venezuela'
+WHERE ShipCountry = 'Germany' OR ShipCountry = 'France' OR ShipCountry = 'Brazil' OR ShipCountry = 'Venezuela'
+ORDER BY ShipCountry
 
 /**EJERCICIO 4 **/
 SELECT Count(CustomerID) AS TotalCustomers FROM Customers
@@ -46,10 +47,18 @@ SELECT * FROM Suppliers WHERE Fax IS NULL
 SELECT AVG(Freight) AS Promedio FROM Orders
 
 /**EJERCICIO 12 **/
-SELECT Count(CustomerID) AS TotalCustomers FROM Customers
-WHERE TotalCustomers=20
+UPDATE Customers SET ContactName = 'Gerson Funez' WHERE CustomerID = 'ERNSH'
+SELECT * FROM Customers WHERE CustomerID = 'ERNSH'
 
 /**EJERCICIO 13 **/
+ALTER TABLE Orders ADD FOREIGN KEY(CustomerID)
+REFERENCES Customers(CustomerID) ON DELETE NO ACTION
+
+ALTER TABLE [dbo].[Order Details] ADD FOREIGN KEY (OrderID)
+REFERENCES Orders(OrderID) ON DELETE CASCADE
+
+DELETE FROM Customers WHERE CustomerID = 'WOLZA'
+
 
 /**EJERCICIO 14 **/
 
