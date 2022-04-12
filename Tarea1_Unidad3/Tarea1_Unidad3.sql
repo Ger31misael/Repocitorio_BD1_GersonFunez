@@ -53,7 +53,7 @@ DROP VIEW COMPRAS;
 /**1. Cree un procedimiento almacenado que muestre todas las ordenes (Orders) 
    realizadas por un empleado en un determinado año. **/
 
-CREATE PROCEDURE getOrdenes 
+CREATE PROCEDURE getOrdenesEmpleados 
     (@fecha  VARCHAR(15), @Empleado VARCHAR(20))
 AS
    SELECT * FROM Orders AS OD
@@ -63,7 +63,7 @@ AS
 
 
 
-Execute getORDENES @Empleado = 'Andrew', @fecha = '1997';
+Execute getOrdenesEmpleados @Empleado = 'Andrew', @fecha = '1997';
 
 
 /**2. Realice un procedimiento almacenado que muestre los clientes que pertencen a determinada ciudad.**/
@@ -89,3 +89,24 @@ WHERE EM.BirthDate LIKE '____-%'+ @Cumpleaños + '__-%'
 EXECUTE getCumpleaños @Cumpleaños='01'
 
 drop PROCEDURE getCumpleaños
+
+/**4. Obtener todas las ordenes generadas en una fecha determinada**/
+CREATE PROCEDURE getOrdenes
+@fecha DATE
+AS
+SELECT * FROM Orders
+WHERE OrderDate = @fecha
+
+drop PROCEDURE getOrdenes
+EXECUTE getOrdenes @fecha= '1997-03-31'
+
+/**5. Realizar un procedimiento almacenado que actualize el telefono de un determinado cliente.**/
+CREATE PROCEDURE updatePhone
+@nuevotelefono VARCHAR (20), @IdCliente VARCHAR (20)
+AS
+
+UPDATE Customers SET Phone = @nuevotelefono WHERE CustomerID = @IdCliente
+SELECT * FROM Customers WHERE CustomerID = @IdCliente
+
+
+EXECUTE updatePhone @IdCliente = 'ANATR', @nuevotelefono= '(504) 33-33-33-33'
